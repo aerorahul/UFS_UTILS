@@ -125,6 +125,7 @@ contains
     type(varinfo_struct), intent(inout) :: varinfo
     type(Dataset) :: varinfo_ds
     type(Variable) :: varinfo_attrs
+    real(rdouble), dimension(:,:,:,:), allocatable :: vararr_4d
     real(rdouble), dimension(:,:,:), allocatable :: vararr_3d
     real(rdouble), dimension(:,:), allocatable :: vararr_2d
     integer(ilong) :: idx
@@ -134,30 +135,39 @@ contains
     varinfo_attrs = get_var(varinfo_ds, trim(adjustl(varinfo%name)))
     varinfo%nx = varinfo_attrs%dimlens(1)
     varinfo%ny = varinfo_attrs%dimlens(2)
-  
+
+    varinfo%ndims = varinfo_attrs%ndims
     if (varinfo_attrs%ndims == 2) then
        varinfo%nz = 1
     else if (varinfo_attrs%ndims == 3) then
        varinfo%nz = varinfo_attrs%dimlens(3)
+    else if (varinfo_attrs%ndims == 4) then
+       varinfo%nz = varinfo_attrs%dimlens(3)
     else
-       !! TODO: Raise as exception.
-       stop 
+       !! # TODO: Raise exception.
     end if
   
     call init_struct(varinfo)
-  
-    if (varinfo_attrs%ndims == 2) then
+    
+    if (varinfo%ndims == 2) then
        if (.not. allocated(vararr_2d)) allocate(vararr_2d(varinfo%nx, varinfo%ny))
        call read_vardata(varinfo_ds, trim(adjustl(varinfo%name)), vararr_2d)
        varinfo%vararr(:,1) = reshape(vararr_2d, shape(varinfo%vararr(:,1)))
        if (allocated(vararr_2d)) deallocate(vararr_2d)
-    else
+    else if (varinfo%ndims == 3) then
        if (.not. allocated(vararr_3d)) allocate(vararr_3d(varinfo%nx, varinfo%ny, varinfo%nz))
        call read_vardata(varinfo_ds, trim(adjustl(varinfo%name)), vararr_3d)
        do idx = 1, varinfo%nz
           varinfo%vararr(:,idx) = reshape(vararr_3d(:,:,idx), shape(varinfo%vararr(:,idx)))
        end do
        if (allocated(vararr_3d)) deallocate(vararr_3d)
+    else if (varinfo%ndims == 4) then
+       if (.not. allocated(vararr_4d)) allocate(vararr_4d(varinfo%nx, varinfo%ny, varinfo%nz, 1))
+       call read_vardata(varinfo_ds, trim(adjustl(varinfo%name)), vararr_4d)
+       do idx = 1, varinfo%nz
+          varinfo%vararr(:,idx) = reshape(vararr_4d(:,:,idx, 1), shape(varinfo%vararr(:,idx)))
+       end do
+       if (allocated(vararr_4d)) deallocate(vararr_4d)
     end if
   
     call close_dataset(varinfo_ds)
@@ -183,6 +193,7 @@ contains
   subroutine write_varinfo(varinfo)
     type(varinfo_struct), intent(in) :: varinfo
     type(Dataset) :: varinfo_ds_in, varinfo_ds_out
+    real(rdouble), dimension(:,:,:,:), allocatable :: vararr_4d
     real(rdouble), dimension(:,:,:), allocatable :: vararr_3d
     real(rdouble), dimension(:,:), allocatable :: vararr_2d
     real(rdouble) :: missval
@@ -192,26 +203,34 @@ contains
     varinfo_ds_in = open_dataset(trim(adjustl(varinfo%file)))   
     varinfo_ds_out = create_dataset(trim(adjustl(varinfo%ncoutput)), &
          varinfo_ds_in, copy_vardata=.true.)
-  
-    if (varinfo%nz == 1) then
+    
+    if (varinfo%ndims == 2) then
        if (.not. allocated(vararr_2d)) allocate(vararr_2d(varinfo%nx, varinfo%ny))
        vararr_2d = reshape(varinfo%vararr(:, 1), shape(vararr_2d))
-       where(vararr_2d .ge. 1.e20) vararr_2d = 1.e30
-       call write_vardata(varinfo_ds_out, trim(adjustl(varinfo%name)), vararr_2d)      
-    else if (varinfo%nz > 1) then
+       where(abs(vararr_2d) .ge. 1.e20) vararr_2d = 1.e30
+       call write_vardata(varinfo_ds_out, trim(adjustl(varinfo%name)), vararr_2d)    
+    else if (varinfo%ndims == 3) then
        if (.not. allocated(vararr_3d)) allocate(vararr_3d(varinfo%nx, varinfo%ny, varinfo%nz))
        do idx = 1, varinfo%nz
           vararr_3d(:,:,idx) = reshape(varinfo%vararr(:, idx), shape(vararr_3d(:,:,idx)))
        end do
-       where(vararr_3d .ge. 1.e20) vararr_3d = 1.30
+       where(abs(vararr_3d) .ge. 1.e20) vararr_3d = 1.30
        call write_vardata(varinfo_ds_out, trim(adjustl(varinfo%name)), vararr_3d)
+    else if (varinfo%ndims == 4) then
+       if (.not. allocated(vararr_4d)) allocate(vararr_4d(varinfo%nx, varinfo%ny, varinfo%nz, 1))
+       do idx = 1, varinfo%nz
+          vararr_4d(:,:,idx,1) = reshape(varinfo%vararr(:, idx), shape(vararr_4d(:,:,idx,1)))
+       end do
+       where(abs(vararr_4d) .ge. 1.e20) vararr_4d = 1.30
+       call write_vardata(varinfo_ds_out, trim(adjustl(varinfo%name)), vararr_4d)       
     else
-       !! # TODO: Raise an exception.
+       !! # TODO: Raise exception.
        stop
     end if
 
     if (allocated(vararr_2d)) deallocate(vararr_2d)
     if (allocated(vararr_3d)) deallocate(vararr_3d)
+    if (allocated(vararr_4d)) deallocate(vararr_4d)
     call close_dataset(varinfo_ds_in)
     call close_dataset(varinfo_ds_out)
     

@@ -80,6 +80,7 @@ module variables
      character(len=maxchar) :: name
      character(len=maxchar) :: ncoutput
      real(rdouble), dimension(:,:), allocatable :: vararr
+     integer(ilong) :: ndims
      integer(ilong) :: nx
      integer(ilong) :: ny
      integer(ilong) :: nz

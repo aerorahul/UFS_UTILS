@@ -136,7 +136,8 @@ class ESMFRemap:
         for nml_tmpl_key in nml_tmpl_dict:
             value = nml_tmpl_dict[nml_tmpl_key]
             data[nml_tmpl_key] = self.yaml_dict.variables[variable][value]
-        Jinja(self.yaml_dict.nml_tmpl, data=data).save(output_file=self.regrid_nml_tmp)
+        Jinja(self.yaml_dict.nml_tmpl, data=data).save(
+            output_file=self.regrid_nml_tmp)
 
     def init_ncoutput(self: Generic, dstgrid_dict: AttrDict) -> None:
         """
@@ -159,7 +160,8 @@ class ESMFRemap:
         # Configure the output grid array dimension attributes.
         ncio_ncinput_obj = NCIO(ncfile=self.yaml_dict.ncinput, read=True)
         ncio_grid_obj = NCIO(ncfile=self.yaml_dict.grid.ncfile, read=True)
-        dims_dict = dict(ncio_ncinput_obj.get_ncdims(), **ncio_grid_obj.get_ncdims())
+        dims_dict = dict(ncio_ncinput_obj.get_ncdims(),
+                         **ncio_grid_obj.get_ncdims())
         ncio_ncinput_obj.close()
         ncio_grid_obj.close()
         for (dim_key, dim_value) in dims_dict.items():
@@ -175,7 +177,8 @@ class ESMFRemap:
         # variables.
         for variable in self.yaml_dict.variables:
             ncvar_dict = AttrDict()
-            ncio_obj = NCIO(ncfile=self.yaml_dict.variables[variable].ncfile, read=True)
+            ncio_obj = NCIO(
+                ncfile=self.yaml_dict.variables[variable].ncfile, read=True)
             ncinfo_dict = ncio_obj.read_ncinfo(
                 ncvarname=self.yaml_dict.variables[variable].ncvarname
             )
@@ -234,9 +237,11 @@ class ESMFRemap:
             self.build_nml(variable=variable)
             self.executable.add_default_arg(f"{self.regrid_nml_tmp}")
             self.executable()
-
-        os.unlink(self.regrid_nml_tmp)
-        os.unlink(self.ncout_file_tmp)
+        try:
+            os.unlink(self.regrid_nml_tmp)
+            os.unlink(self.ncout_file_tmp)
+        except FileNotFoundError:
+            pass
 
     def run(self: Generic) -> None:
         """

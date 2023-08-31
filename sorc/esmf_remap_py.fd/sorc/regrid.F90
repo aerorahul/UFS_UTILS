@@ -43,10 +43,8 @@ program regrid
   call read_io(varinfo_in)
   call read_io(varinfo_out)
 
-  do idx = 1, size(varinfo_in%vararr(1, :))
-     call esmf_interp(esmf=esmf, varin=varinfo_in%vararr, &
-          varout=varinfo_out%vararr)
-  end do
+  call esmf_interp(esmf=esmf, varin=varinfo_in%vararr, &
+       varout=varinfo_out%vararr)
 
   call write_io(varinfo_out)
   call destroy_struct(esmf)
