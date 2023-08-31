@@ -178,15 +178,18 @@ class NCIO:
         # Create the specified netCDF vriable within the netCDF file
         # object.
         ncvar = self.ncio_file.createVariable(
-            ncvar_dict.name, numpy.float, ncvar_dict.dims
+            ncvar_dict.name, numpy.float, ncvar_dict.dims, fill_value=1.0e30
         )
-        if "_FillValue" in ncvar_dict.attrs:
-            fill_value = ncvar_dict.attrs.pop("_FillValue")
-            ncvar_dict.attrs["fill_value"] = fill_value
+        for attr in ["_FillValue", "fill_value", "missing_value"]:
+            try:
+                ncvar_dict.attrs.pop(attr)
+            except KeyError:
+                pass
         [
             ncvar.setncattr(f"{item}", f"{ncvar_dict.attrs[item]}")
             for item in ncvar_dict.attrs
         ]
+        ncvar[:] = 1.0e30
 
     def get_ncdims(self: Generic) -> AttrDict:
         """
@@ -243,8 +246,7 @@ class NCIO:
         ncinfo = AttrDict()
         variable = self.ncio_file.variables[f"{ncvarname}"]
         ncinfo.dims = {dim.name: dim.size for dim in variable.get_dims()}
-        ncinfo.attrs = {attr: variable.getncattr(
-            attr) for attr in variable.ncattrs()}
+        ncinfo.attrs = {attr: variable.getncattr(attr) for attr in variable.ncattrs()}
 
         return ncinfo
 
