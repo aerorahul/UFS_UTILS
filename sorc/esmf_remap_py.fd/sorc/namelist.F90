@@ -29,12 +29,14 @@ module namelist
   character(len=maxchar) :: invar_name
   character(len=maxchar) :: outvar_file
   character(len=maxchar) :: outvar_name
+  character(len=maxchar) :: ncoutput
   
   integer(ilong), parameter :: unit_nml = 99
   
   namelist / esmf / esmf_coeffs_file, &
        invar_file, &
        invar_name, &
+       ncoutput, &
        outvar_file, &
        outvar_name
 
@@ -50,7 +52,6 @@ contains
   ! 
   !   nml[inout]: A FORTRAN `nml_struct` data structure.
   !----------------------------------------------------------------------------
-  
   ! > @brief Reads the FORTRAN namelist-formatted file and returns a
   ! ! `nml_struct` variable containing the contents within.
   ! !
@@ -72,6 +73,7 @@ contains
     nml%esmf_coeffs_file = esmf_coeffs_file
     nml%invar_file = invar_file
     nml%invar_name = invar_name
+    nml%ncoutput = ncoutput
     nml%outvar_file = outvar_file
     nml%outvar_name = outvar_name
   end function read_namelist
