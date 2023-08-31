@@ -29,8 +29,6 @@ Classes
 Requirements
 ------------
 
-- netCDF4; https://github.com/Unidata/netcdf4-python
-
 - wxflow; https://github.com/NOAA-EMC/wxflow
 
 Author(s)
