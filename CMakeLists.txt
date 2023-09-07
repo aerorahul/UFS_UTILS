@@ -30,6 +30,7 @@ option(FVCOMTOOLS "Enable building fvcom_tools.fd" ON)
 option(GBLEVENTS "Enable building gblevents.fd" ON)
 option(CPLD_GRIDGEN "Enable building cpld_gridgen.fd" ON)
 option(WEIGHT_GEN "Enable building weight_gen.fd" ON)
+option(ESMF_REMAP "Enable building esmf_remap.fd" ON)
 
 # Option to build application specific utilities
 option(GFS "Enable building GFS-only utilities" OFF)
