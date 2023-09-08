@@ -48,8 +48,8 @@ netcdf_ver=os.getenv("netcdf_ver") or "4.7.4"
 load(pathJoin("netcdf-c", netcdf_ver))
 load(pathJoin("netcdf-fortran", "4.5.3")) 
 
-nccmp_ver=os.getenv("nccmp_ver") or "1.8.9.0"
-load(pathJoin("nccmp", nccmp_ver))
+#nccmp_ver=os.getenv("nccmp_ver") or "1.8.9.0"
+#load(pathJoin("nccmp", nccmp_ver))
 
 esmf_ver=os.getenv("esmf_ver") or "8.4.24"
 load(pathJoin("esmf", esmf_ver))
