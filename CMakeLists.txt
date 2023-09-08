@@ -89,9 +89,8 @@ if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
 endif()
 
 # Find packages.
-# TODO: Changed netCDF version
 find_package(NetCDF 4.7.4 REQUIRED C Fortran)
-#find_package(NetCDF 4.3.3 REQUIRED C Fortran)
+find_package(NetCDF 4.3.3 REQUIRED C Fortran)
 find_package(MPI REQUIRED C Fortran)
 find_package(ESMF 8.0.0 REQUIRED)
 
@@ -99,11 +98,11 @@ if(OPENMP)
   find_package(OpenMP REQUIRED COMPONENTS Fortran)
 endif()
 
-find_package(sfcio 1.4.1 REQUIRED)
+#find_package(sfcio 1.4.1 REQUIRED) # TODO: For debugging.
 find_package(w3emc 2.9.2 REQUIRED)
 find_package(bacio 2.4.1 REQUIRED)
 find_package(nemsio 2.5.4 REQUIRED)
-#find_package(sigio 2.3.0 REQUIRED)
+#find_package(sigio 2.3.0 REQUIRED) # TODO: For debugging.
 find_package(sp 2.3.3 REQUIRED)
 find_package(ip 4.0.0 REQUIRED)
 find_package(g2 3.4.5 REQUIRED)
