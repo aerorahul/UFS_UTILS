@@ -4,8 +4,8 @@ Load environment to compile UFS_UTILS on NOAA CSPs using Intel
 
 -- prepend_path("MODULEPATH", "/scratch1/NCEPDEV/da/Henry.Winterbottom/UFS/spack-stack/envs/ufs_utils_stack/install/modulefiles/Core")
 
--- cmake_ver=os.getenv("cmake_ver") or "3.23.1"
--- load(pathJoin("cmake", cmake_ver))
+cmake_ver=os.getenv("cmake_ver") or "3.23.1"
+load(pathJoin("cmake", cmake_ver))
 
 hpc_intel_ver=os.getenv("hpc_intel_ver") or "2022.1.2"
 load(pathJoin("intel", hpc_intel_ver))
