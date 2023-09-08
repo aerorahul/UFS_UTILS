@@ -1,7 +1,10 @@
 # This is the main CMake file for NCEPLIBS-ip.
 #
 # George Gayno
-cmake_minimum_required(VERSION 3.15)
+#cmake_minimum_required(VERSION 3.15)
+
+# TODO
+cmake_minimum_required(VERSION 2.8)
 
 # Get the version from the VERSION file.
 file(STRINGS "VERSION" pVersion)
