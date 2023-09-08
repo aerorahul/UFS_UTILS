@@ -19,7 +19,7 @@ set(exe_name esmf_remap)
 add_executable(${exe_name} ${fortran_src})
 target_link_libraries(
   ${exe_name}
-  ncio::ncio
+  ncio::module_ncio
   NetCDF::NetCDF_Fortran)
 
 install(TARGETS ${exe_name})
