@@ -40,7 +40,7 @@ load(pathJoin("w3emc", w3emc_ver))
 sfcio_ver=os.getenv("sfcio_ver") or "1.4.1"
 load(pathJoin("sfcio", sfcio_ver))
 
-sigio_ver=os.getenv("sigio_ver") or "2.3.0"
+sigio_ver=os.getenv("sigio_ver") or "2.3.2"
 load(pathJoin("sigio", sigio_ver))
 
 zlib_ver=os.getenv("zlib_ver") or "1.2.11"
