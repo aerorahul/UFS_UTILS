@@ -8,11 +8,12 @@ load(pathJoin("cmake", cmake_ver))
 hpc_intel_ver=os.getenv("hpc_intel_ver") or "2021.3.0"
 load(pathJoin("intel", hpc_intel_ver))
 
-impi_ver=os.getenv("impi_ver") or "2021.5.0"
+impi_ver=os.getenv("impi_ver") or "2021.3.0"
 load(pathJoin("impi", impi_ver))
 
 bacio_ver=os.getenv("bacio_ver") or "2.4.1"
 load(pathJoin("bacio", bacio_ver))
+
 g2_ver=os.getenv("g2_ver") or "3.4.5"
 load(pathJoin("g2", g2_ver))
 
