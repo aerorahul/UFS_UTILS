@@ -3,7 +3,7 @@
 # George Gayno
 #cmake_minimum_required(VERSION 3.15)
 
-# TODO
+# TODO: This is for testing/debugging.
 cmake_minimum_required(VERSION 2.8)
 
 # Get the version from the VERSION file.
@@ -20,6 +20,7 @@ option(OPENMP "use OpenMP threading" ON)
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 
 # Utilities to be built (Default: ALL)
+# TODO: Turn on packages.
 option(ICEBLEND "Enable building emcsfc_ice_blend.fd" OFF)
 option(SNOW2MDL "Enable building emcsfc_snow2mdl.fd" OFF)
 option(GCYCLE "Enable building global_cycle.fd" OFF)
@@ -91,7 +92,9 @@ if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
 endif()
 
 # Find packages.
-find_package(NetCDF 4.3.3 REQUIRED C Fortran)
+# TODO: Changed netCDF version
+find_package(NetCDF 4.7.4 REQUIRED C Fortran)
+#find_package(NetCDF 4.3.3 REQUIRED C Fortran)
 find_package(MPI REQUIRED C Fortran)
 find_package(ESMF 8.0.0 REQUIRED)
 

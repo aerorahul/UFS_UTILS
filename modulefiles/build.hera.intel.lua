@@ -48,7 +48,7 @@ load(pathJoin("hdf5", hdf5_ver))
 
 netcdf_ver=os.getenv("netcdf_ver") or "4.7.4"
 load(pathJoin("netcdf-c", netcdf_ver))
-load(pathJoin("netcdf-fortran", "4.5.3")) 
+-- load(pathJoin("netcdf-fortran", "4.5.3")) 
 
 -- nccmp_ver=os.getenv("nccmp_ver") or "1.8.9.0"
 -- load(pathJoin("nccmp", nccmp_ver))
