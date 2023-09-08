@@ -105,7 +105,7 @@ find_package(nemsio 2.5.4 REQUIRED)
 find_package(sp 2.3.3 REQUIRED)
 find_package(ip 4.0.0 REQUIRED)
 find_package(g2 3.4.5 REQUIRED)
-find_package(ncio 1.0.0 REQUIRED)
+find_package(ncio 1.1.0 REQUIRED)
 # If doxygen documentation we enabled, build it. This must come before
 # adding the source code directories; the main documentation build
 # must happen before any of the utility document builds.
