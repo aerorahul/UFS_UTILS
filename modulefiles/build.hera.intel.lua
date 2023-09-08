@@ -7,11 +7,11 @@ Load environment to compile UFS_UTILS on NOAA CSPs using Intel
 -- cmake_ver=os.getenv("cmake_ver") or "3.23.1"
 -- load(pathJoin("cmake", cmake_ver))
 
--- hpc_intel_ver=os.getenv("hpc_intel_ver") or "2022.1.2"
--- load(pathJoin("intel", hpc_intel_ver))
+hpc_intel_ver=os.getenv("hpc_intel_ver") or "2022.1.2"
+load(pathJoin("intel", hpc_intel_ver))
 
--- impi_ver=os.getenv("impi_ver") or "2022.1.2"
--- load(pathJoin("impi", impi_ver))
+impi_ver=os.getenv("impi_ver") or "2022.1.2"
+load(pathJoin("impi", impi_ver))
 
 bacio_ver=os.getenv("bacio_ver") or "2.4.1"
 load(pathJoin("bacio", bacio_ver))
