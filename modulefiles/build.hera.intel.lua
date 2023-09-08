@@ -56,8 +56,8 @@ load(pathJoin("netcdf-fortran", "4.5.3"))
 esmf_ver=os.getenv("esmf_ver") or "8.4.2"
 load(pathJoin("esmf", esmf_ver))
 
-nco_ver=os.getenv("nco_ver") or "4.9.1"
-load(pathJoin("nco", nco_ver))
+-- nco_ver=os.getenv("nco_ver") or "4.9.1"
+-- load(pathJoin("nco", nco_ver))
 
 ncio_ver=os.getenv("ncio_ver") or "1.1.2"
 load(pathJoin("ncio", ncio_ver))
