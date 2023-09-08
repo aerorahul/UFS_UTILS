@@ -52,11 +52,11 @@ load(pathJoin("libpng", png_ver))
 hdf5_ver=os.getenv("hdf5_ver") or "1.10.6"
 load(pathJoin("hdf5", hdf5_ver))
 
-ncio_ver=os.getenv("ncio_ver") or "1.1.2"
-load(pathJoin("ncio", ncio_ver))
-
 netcdf_ver=os.getenv("netcdf_ver") or "4.7.4"
 load(pathJoin("netcdf", netcdf_ver))
+
+ncio_ver=os.getenv("ncio_ver") or "1.1.2"
+load(pathJoin("ncio", ncio_ver))
 
 nccmp_ver=os.getenv("nccmp_ver") or "1.8.9.0"
 load(pathJoin("nccmp", nccmp_ver))
