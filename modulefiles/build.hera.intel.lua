@@ -57,4 +57,7 @@ load(pathJoin("esmf", esmf_ver))
 nco_ver=os.getenv("nco_ver") or "4.9.1"
 load(pathJoin("nco", nco_ver))
 
+ncio_ver=os.getenv("ncio_ver") or "1.1.2"
+load(pathJoin("ncio", ncio_ver))
+
 whatis("Description: UFS_UTILS build environment")
