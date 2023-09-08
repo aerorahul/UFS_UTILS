@@ -96,7 +96,7 @@ if(OPENMP)
   find_package(OpenMP REQUIRED COMPONENTS Fortran)
 endif()
 
-find_package(sfcio 1.4.1 REQUIRED)
+find_package(sfcio 1.4.0 REQUIRED)
 find_package(w3emc 2.9.2 REQUIRED)
 find_package(bacio 2.4.1 REQUIRED)
 find_package(nemsio 2.5.4 REQUIRED)
