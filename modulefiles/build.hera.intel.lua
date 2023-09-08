@@ -55,6 +55,9 @@ load(pathJoin("hdf5", hdf5_ver))
 netcdf_ver=os.getenv("netcdf_ver") or "4.9.1"
 load(pathJoin("netcdf", netcdf_ver))
 
+ncio_ver=os.getenv("ncio_ver") or "1.1.2"
+load(pathJoin("ncio", ncio_ver))
+
 nccmp_ver=os.getenv("nccmp_ver") or "1.9.0.1"
 load(pathJoin("nccmp", nccmp_ver))
 

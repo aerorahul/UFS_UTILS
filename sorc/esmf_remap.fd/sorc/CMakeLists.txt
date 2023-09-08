@@ -7,20 +7,20 @@ list(APPEND fortran_src
 )
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
-  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -r8 -i4 -convert big_endian")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -r8 -assume byterecl")
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
-  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fdefault-real-8")
+  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -ffree-line-length-0 -fdefault-real-8")
+
+  # Turn on this argument mismatch flag for gfortran10.
   if(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
-    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
+     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
   endif()
 endif()
 
 set(exe_name esmf_remap)
 add_executable(${exe_name} ${fortran_src})
-target_link_libraries(
-  ${exe_name}
-  ncio::module_ncio
-  NetCDF::NetCDF_Fortran)
+target_link_libraries(${exe_name} PRIVATE ncio::ncio
+                                          NetCDF::NetCDF_Fortran)
 
 install(TARGETS ${exe_name})
 
@@ -28,3 +28,4 @@ install(TARGETS ${exe_name})
 if(ENABLE_DOCS)
   add_subdirectory(docs)
 endif()
+

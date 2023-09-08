@@ -30,6 +30,7 @@ option(FVCOMTOOLS "Enable building fvcom_tools.fd" ON)
 option(GBLEVENTS "Enable building gblevents.fd" ON)
 option(CPLD_GRIDGEN "Enable building cpld_gridgen.fd" ON)
 option(WEIGHT_GEN "Enable building weight_gen.fd" ON)
+option(ESMF_REMAP "Enable building esmf_remap.fd" ON)
 
 # Option to build application specific utilities
 option(GFS "Enable building GFS-only utilities" OFF)
@@ -104,6 +105,7 @@ find_package(sp 2.3.3 REQUIRED)
 find_package(ip 3.3.3 REQUIRED)
 find_package(g2 3.4.3 REQUIRED)
 find_package(sigio 2.3.0 REQUIRED)
+find_package(ncio 1.1.2 REQUIRED)
 
 # If doxygen documentation we enabled, build it. This must come before
 # adding the source code directories; the main documentation build
